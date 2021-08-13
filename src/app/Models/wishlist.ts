@@ -1,6 +1,11 @@
+import { Customer } from "./customer";
+import { Product } from "./product";
+
 export class Wishlist {
-    wishlist_id !: number; 
-	product_id !: number; 
-	customer_id !: number;
+    wishlistId !: number; 
+	productId !: number; 
+	customerId !: number;
+	product!:Product
+	customer!:Customer
 
 }

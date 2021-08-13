@@ -1,11 +1,14 @@
+import { Admin } from "./admin";
+
 export class Retailer {
-    retailer_id !: number;
-    retailer_name!: string;
-    retailer_password!: string;
-    retailer_email!: string;
-    retailer_phone!: string;
-    user_type!: string;
-    verification_status ! : boolean;
-    admin_id ! :number;
+    retailerId !: number;
+    retailerName!: string;
+    retailerPassword!: string;
+    retailerEmail!: string;
+    retailerPhone!: string;
+    userType!: string;
+    verificationStatus ! : boolean;
+    adminId ! :number;
+    admin!:Admin;
 
 }

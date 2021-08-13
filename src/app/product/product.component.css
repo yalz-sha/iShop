@@ -1,10 +1,10 @@
-
 body {
     font-family: 'open sans';
     overflow-x: hidden; 
     margin: 20px;
     color:#075E54
 }
+
   
   img:hover
   {
@@ -33,10 +33,10 @@ body {
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
-            flex-direction: column; }
+            flex-direction: column; } 
   
   
-  
+
   .product-title, .price {
     
     font-weight: bold; }
@@ -76,6 +76,7 @@ body {
   
   
   .tooltip-inner {
-    padding: 1.3em; }
-  
-  
+
+  padding: 1.3em; }
+
+

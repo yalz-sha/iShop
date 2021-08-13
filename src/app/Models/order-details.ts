@@ -1,13 +1,16 @@
+import { Customer } from "./customer";
+
 export class OrderDetails {
-    order_id !: number; 
-	order_total !: number ; 
-	order_address !: string; 
+    orderId !: number; 
+	orderTotal !: number ; 
+	orderAddress !: string; 
 	phone !: string; 
 	zipcode !: number; 
 	city !: string;
 	state !: string;
-	customer_id !: number; 
-	order_date!:Date ;
-	mode_of_payment !: string;
+	customerId !: number; 
+	orderDate!:Date ;
+	modeOfPayment !: string;
+	customer!:Customer
 
 }

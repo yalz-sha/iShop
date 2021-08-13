@@ -1,7 +1,13 @@
+import { Customer } from "./customer";
+import { Product } from "./product";
+
 export class Cart {
-    cart_id !: number; 
-	product_id !: number; 
-	cartproduct_quantity !: number; 
-	customer_id !: number; 
+    cartId !: number; 
+	productId !: number; 
+	cartproductQuantity !: number; 
+	customerId !: number; 
+	customer!:Customer;
+	product!:Product
+	
 
 }

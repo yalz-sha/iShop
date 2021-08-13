@@ -1,12 +1,21 @@
+import { Cart } from "./cart";
+import { Category } from "./category";
+import { Retailer } from "./retailer";
+import { Wishlist } from "./wishlist";
+
 export class Product {
-    product_id !: number; 
-	product_name !: string; 
-	product_imagesrc !: string; 
-	product_description !: string; 
-	product_price!:number; 
-	category_id !: number;
-	product_brand !: string;
-	retailer_id !: number; 
-	product_quantity !: number; 
+    productId !: number; 
+	productName !: string; 
+	productImagesrc !: string; 
+	productDescription !: string; 
+	productPrice!:number; 
+	categoryId !: number;
+	productBrand !: string;
+	retailerId !: number; 
+	productQuantity !: number; 
+	retailer!:Retailer;
+	
+	
+	category!:Category;
 
 }
