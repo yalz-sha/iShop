@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,14 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class LoginComponent implements OnInit {
   submitted = false;
   CustomerLogin!:FormGroup;
-  RetailerLogin!:FormGroup;
-  userType:number=1;
+  RetailerLogin !:FormGroup;
+  userType!:string
  
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private router:ActivatedRoute,private rou:Router ) { }
+ // constructor(private service:ApiCallService,private router:ActivatedRoute,private rou:Router) { }
 
   ngOnInit(): void {
+    this.userType = this.router.snapshot.params['usertype']
     this.CustomerLogin = this.formBuilder.group(
       {
         customerEmail: ['', [Validators.required, Validators.email]],
@@ -30,8 +33,8 @@ export class LoginComponent implements OnInit {
     );
     this.RetailerLogin = this.formBuilder.group(
       {
-        customerEmail: ['', [Validators.required, Validators.email]],
-        customerPassword: [
+        retailerEmail: ['', [Validators.required, Validators.email]],
+        retailerPassword: [
           '',
           [
             Validators.required,
@@ -41,22 +44,24 @@ export class LoginComponent implements OnInit {
        
       },
     );
-    
   }
+
   get f(): { [key: string]: AbstractControl } {
     return this.CustomerLogin.controls;
   }
-
+  get g(): { [key: string]: AbstractControl } {
+    return this.RetailerLogin.controls;
+  }
   
 
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.RetailerLogin.invalid) {
+    if (this.CustomerLogin.invalid) {
       return;
     }
 
-    console.log(JSON.stringify(this.RetailerLogin.value, null, 2));
+     console.log(JSON.stringify(this.CustomerLogin.value, null, 2));
   }
   }
 

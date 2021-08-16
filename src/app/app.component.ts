@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 
 @Component({
@@ -9,6 +9,24 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'DemoProjectLTI';
-  constructor(private route:Router){}
+  // constructor(private route:Router){}
+  showHead: boolean = true;
+  constructor(public router: Router) {
+    if(this.router.url==='/login/1' || this.router.url=='/cardview' )
+  {
+    this.showHead=false
+
+  }
+   
+   
   
+}
+ngOnInit(){
+  if(this.router.url=='/login/1' )
+  {
+    this.showHead=false
+
+  }
+
+}
 }
