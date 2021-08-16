@@ -6,6 +6,7 @@ import { Customer } from '../Models/customer';
 import { Product } from '../Models/product';
 import { Retailer } from '../Models/retailer';
 import { CartService } from '../Services/cart.service';
+import { CompareService } from '../Services/compare.service';
 import { CustomerService } from '../Services/customer.service';
 import { ProductService } from '../Services/product.service';
 import { RetailerService } from '../Services/retailer.service';
@@ -24,15 +25,30 @@ export class ProductComponent implements OnInit {
   cart!:  any;
   wishlistl!:any;
   quantity:number = 1;
-  constructor(private wishlistservice:WishlistService,private customerservice:CustomerService,private cartservice:CartService,private productservice:ProductService,private retailerservice:RetailerService,private router:ActivatedRoute) { 
-    
-  }
+  customerid!:string;
+  
+
+  constructor(
+    private wishlistservice:WishlistService,
+    private customerservice:CustomerService,
+    private cartservice:CartService,
+    private productservice:ProductService,
+    private retailerservice:RetailerService,
+    private compareservice :CompareService,
+    private router:ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.productservice.getById(this.router.snapshot.params['productid']).subscribe((data)=>{
       console.log(data)
       this.product=data});
-      this.customerservice.getById(1).subscribe(data=>{
+      if(localStorage.getItem('isLoggedIn')==="true")
+      {
+              
+        this.customerid = localStorage.getItem('currentUser')|| "";  
+        console.log(" id:"+this.customerid)     
+      }
+      this.customerservice.getById(+this.customerid).subscribe(data=>{
         this.customer=data
       console.log(data)});      
     
@@ -40,24 +56,23 @@ export class ProductComponent implements OnInit {
   }
 
   addtocart(productid:number)
-  {           
-    
-    
+  {         
+        
     if(this.customer.cart.length===0)
     {
-      this.cart = {productId:productid,cartproductQuantity:this.quantity,customerId:1}
+      this.cart = {productId:productid,cartproductQuantity:this.quantity,customerId:+this.customerid}
       this.cartservice.create(this.cart).subscribe();
     }
     else{
       this.customer.cart.forEach(element => {
         if(productid===element.productId)
         { 
-          this.cart = {cartId:element.cartId,productId:productid,cartproductQuantity:element.cartproductQuantity+this.quantity,customerId:1}
+          this.cart = {cartId:element.cartId,productId:productid,cartproductQuantity:element.cartproductQuantity+this.quantity,customerId:+this.customerid}
           this.cartservice.update(element.cartId,this.cart).subscribe();
           console.log(this.cart);
         }
         else{
-          this.cart = {productId:productid,cartproductQuantity:this.quantity,customerId:1}
+          this.cart = {productId:productid,cartproductQuantity:this.quantity,customerId:+this.customerid}
           this.cartservice.create(this.cart).subscribe();
           this.ngOnInit();
           console.log(this.cart);
@@ -74,7 +89,7 @@ export class ProductComponent implements OnInit {
   if(this.customer.wishlist.length===0)
   {
     console.log('create')
-    this.wishlistl = {productId:productid,customerId:1}
+    this.wishlistl = {productId:productid,customerId:+this.customerid}
     this.wishlistservice.create(this.wishlistl).subscribe();
   }      
     
@@ -87,7 +102,7 @@ export class ProductComponent implements OnInit {
         }
         else{
           console.log('create')
-          this.wishlistl = {productId:productid,customerId:1}
+          this.wishlistl = {productId:productid,customerId:+this.customerid}
           this.wishlistservice.create(this.wishlistl).subscribe();
         }
       });  
@@ -100,6 +115,11 @@ export class ProductComponent implements OnInit {
     if(this.quantity>0)
     {
       this.quantity-=1}
+    }
+
+    addtocompare(productid:number)
+    {
+      this.compareservice.Add(productid);
     }
 
 }
